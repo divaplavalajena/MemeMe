@@ -67,6 +67,38 @@
                                     <rect key="frame" x="7" y="152" width="524" height="30"/>
                                 </variation>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Please select an image from your Photo Album or take a new photo.  Then apply meme text!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vrm-UX-Fzf">
+                                <rect key="frame" x="192" y="215" width="216" height="125"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="125" id="3Jc-aU-K9k"/>
+                                    <constraint firstAttribute="width" constant="216" id="EWp-6Z-qsi"/>
+                                    <constraint firstAttribute="height" constant="125" id="M2c-Ge-Wjh"/>
+                                    <constraint firstAttribute="width" constant="216" id="jpZ-AJ-PEf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="3Jc-aU-K9k"/>
+                                        <exclude reference="EWp-6Z-qsi"/>
+                                        <exclude reference="M2c-Ge-Wjh"/>
+                                        <exclude reference="jpZ-AJ-PEf"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="EWp-6Z-qsi"/>
+                                        <include reference="M2c-Ge-Wjh"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="3Jc-aU-K9k"/>
+                                        <include reference="jpZ-AJ-PEf"/>
+                                    </mask>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -82,6 +114,8 @@
                             <constraint firstAttribute="leadingMargin" secondItem="0Pa-k5-5Zd" secondAttribute="leading" id="8VD-R9-otU"/>
                             <constraint firstItem="CDc-oj-S3z" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="8kI-lR-8Rc"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="kBs-iH-GBG" secondAttribute="bottom" id="BUq-B9-bF4"/>
+                            <constraint firstItem="Vrm-UX-Fzf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="C2l-oQ-6sP"/>
+                            <constraint firstItem="Vrm-UX-Fzf" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="CMh-qj-SxN"/>
                             <constraint firstItem="gRH-Wr-5j1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="EVI-5L-zwr"/>
                             <constraint firstAttribute="leadingMargin" secondItem="CDc-oj-S3z" secondAttribute="leading" id="EpK-Fm-XAp"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gRH-Wr-5j1" secondAttribute="trailing" constant="-20" id="J4Y-Rp-WyB"/>
@@ -98,6 +132,8 @@
                             <constraint firstItem="kBs-iH-GBG" firstAttribute="top" secondItem="gRH-Wr-5j1" secondAttribute="bottom" id="Z2M-Fl-zTA"/>
                             <constraint firstItem="CDc-oj-S3z" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aDG-BX-y8j"/>
                             <constraint firstItem="CDc-oj-S3z" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="cHV-Z7-BFC"/>
+                            <constraint firstItem="Vrm-UX-Fzf" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="cfV-wG-MYv"/>
+                            <constraint firstItem="Vrm-UX-Fzf" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="dz3-BV-2HV"/>
                             <constraint firstItem="kBs-iH-GBG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-20" id="eGy-Mo-5hV"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gRH-Wr-5j1" secondAttribute="trailing" constant="-20" id="ed3-Gc-het"/>
                             <constraint firstItem="0Pa-k5-5Zd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ek7-7f-mdU"/>
@@ -139,6 +175,10 @@
                                 <exclude reference="ltY-k5-YQc"/>
                                 <exclude reference="pLM-i7-orW"/>
                                 <exclude reference="yln-tX-7AO"/>
+                                <exclude reference="C2l-oQ-6sP"/>
+                                <exclude reference="CMh-qj-SxN"/>
+                                <exclude reference="cfV-wG-MYv"/>
+                                <exclude reference="dz3-BV-2HV"/>
                                 <exclude reference="13M-Bw-vKB"/>
                                 <exclude reference="2k4-b1-gs0"/>
                                 <exclude reference="8VD-R9-otU"/>
@@ -174,6 +214,8 @@
                                 <include reference="KOo-se-Fmi"/>
                                 <include reference="aDG-BX-y8j"/>
                                 <include reference="ltY-k5-YQc"/>
+                                <include reference="CMh-qj-SxN"/>
+                                <include reference="dz3-BV-2HV"/>
                                 <include reference="13M-Bw-vKB"/>
                                 <include reference="8VD-R9-otU"/>
                                 <include reference="tfd-73-qOO"/>
@@ -185,6 +227,9 @@
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="Vrm-UX-Fzf"/>
+                            </mask>
                             <mask key="constraints">
                                 <include reference="4dq-vb-2dh"/>
                                 <include reference="5CD-H0-Ctv"/>
@@ -193,6 +238,8 @@
                                 <include reference="TZV-gt-8Em"/>
                                 <include reference="cHV-Z7-BFC"/>
                                 <include reference="leK-Ur-Xja"/>
+                                <include reference="C2l-oQ-6sP"/>
+                                <include reference="cfV-wG-MYv"/>
                                 <include reference="Po0-67-7z0"/>
                                 <include reference="Tr4-bg-MVf"/>
                                 <include reference="f2c-E6-HtT"/>
@@ -227,6 +274,7 @@
                         <outlet property="bottomTextField" destination="0Pa-k5-5Zd" id="3KL-nb-jQy"/>
                         <outlet property="cameraButton" destination="Zkf-Ju-sx9" id="gv5-2Q-5aY"/>
                         <outlet property="imagePickerView" destination="gRH-Wr-5j1" id="x7p-0d-I5B"/>
+                        <outlet property="instructionLabel" destination="Vrm-UX-Fzf" id="tDM-gh-OJD"/>
                         <outlet property="shareButton" destination="iRR-Mz-MZ0" id="XjD-Ku-1XR"/>
                         <outlet property="toolbar" destination="kBs-iH-GBG" id="Zd0-jX-hCa"/>
                         <outlet property="topTextField" destination="CDc-oj-S3z" id="iPz-8p-hm5"/>
@@ -234,7 +282,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="303" y="429"/>
+            <point key="canvasLocation" x="388" y="460"/>
         </scene>
     </scenes>
 </document>

@@ -19,6 +19,7 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     var memedImage: UIImage?
     
+    @IBOutlet var instructionLabel: UILabel!
     
     @IBOutlet var imagePickerView: UIImageView!
     @IBOutlet var cameraButton: UIBarButtonItem!
@@ -48,6 +49,7 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     func generateMemedImage() -> UIImage {
         //Hide toolbar and navbar
         toolbar.hidden = true
+        instructionLabel.hidden = true
         
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
@@ -93,8 +95,10 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         if imagePickerView.image == nil {
             shareButton.enabled = false
+            instructionLabel.hidden = false
         } else {
             shareButton.enabled = true
+            instructionLabel.hidden = true
         }
         
         cameraButton?.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
