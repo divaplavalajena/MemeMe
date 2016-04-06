@@ -143,29 +143,32 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             let image = memedImage
             let controller = UIActivityViewController(activityItems: [image!], applicationActivities: nil)
             controller.completionWithItemsHandler = {(activityType, completed:Bool, returnedItems:[AnyObject]?, error:NSError?) in
-                self.save()
                 
                 if !completed {
                     print("Sharing cancelled by user")
+                } else {
+                    self.save()
+                
+                    switch activityType! {
+                    case UIActivityTypePostToFacebook:
+                        print("Facebook")
+                    case UIActivityTypePostToTwitter:
+                        print("Twitter")
+                    case UIActivityTypeSaveToCameraRoll:
+                        print("Saved to camera roll")
+                    case UIActivityTypeMessage:
+                        print("Sent as text message")
+                    case UIActivityTypePostToFlickr:
+                        print("Flickr")
+                    case UIActivityTypePostToVimeo:
+                        print("Vimeo")
+                    case UIActivityTypeMail:
+                        print("Shared via email")
+                    default:
+                        print("default called - some other selection was made")
+                    }
                 }
-                switch activityType! {
-                case UIActivityTypePostToFacebook:
-                    print("Facebook")
-                case UIActivityTypePostToTwitter:
-                    print("Twitter")
-                case UIActivityTypeSaveToCameraRoll:
-                    print("Saved to camera roll")
-                case UIActivityTypeMessage:
-                    print("Sent as text message")
-                case UIActivityTypePostToFlickr:
-                    print("Flickr")
-                case UIActivityTypePostToVimeo:
-                    print("Vimeo")
-                case UIActivityTypeMail:
-                    print("Shared via email")
-                default:
-                    print("default called - some other selection was made")
-                }
+                
                 self.dismissViewControllerAnimated(true, completion: nil)
             }
             self.presentViewController(controller, animated: true, completion: nil)
