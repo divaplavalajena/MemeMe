@@ -36,40 +36,8 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         NSStrokeWidthAttributeName : -5.0
     ]
     
-    //MARK: Save method and generate method for meme
-    func save() {
-        //Create the meme
-        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, imageOriginal: imagePickerView.image!, imageMeme: memedImage!)
-        
-        // Add it to the memes array in the Application Delegate
-        (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
-        
-    }
+    func setTextFieldAttributes() {
     
-    func generateMemedImage() -> UIImage {
-        //Hide toolbar and navbar
-        toolbar.hidden = true
-        instructionLabel.hidden = true
-        
-        // Render view to an image
-        UIGraphicsBeginImageContext(self.view.frame.size)
-        view.drawViewHierarchyInRect(self.view.frame, afterScreenUpdates: true)
-        let memedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        //Show toolbar and navbar
-        toolbar.hidden = false
-        
-        return memedImage
-    }
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.topTextField.delegate = self
-        self.bottomTextField.delegate = self
-        
         topTextField.borderStyle = UITextBorderStyle.None
         bottomTextField.borderStyle = UITextBorderStyle.None
         
@@ -84,7 +52,16 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         
         topTextField.textAlignment = .Center
         bottomTextField.textAlignment = .Center
+    }
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
+        self.topTextField.delegate = self
+        self.bottomTextField.delegate = self
+        
+        setTextFieldAttributes()
         
     }
     
@@ -139,6 +116,7 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         dismissViewControllerAnimated(true, completion: nil)
     }
     
+    
     @IBAction func shareButton(sender: AnyObject) {
         //Generate the Memed Image and store it in the memedImage variable
         memedImage = generateMemedImage()
@@ -172,14 +150,38 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
                         print("default called - some other selection was made")
                     }
                 }
-                
                 self.dismissViewControllerAnimated(true, completion: nil)
             }
             self.presentViewController(controller, animated: true, completion: nil)
-            
-            
         }
+    }
+    
+    
+    //MARK: Save method and generate method for meme
+    func save() {
+        //Create the meme
+        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, imageOriginal: imagePickerView.image!, imageMeme: memedImage!)
         
+        // Add it to the memes array in the Application Delegate
+        (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
+        
+    }
+    
+    func generateMemedImage() -> UIImage {
+        //Hide toolbar and navbar
+        toolbar.hidden = true
+        instructionLabel.hidden = true
+        
+        // Render view to an image
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        view.drawViewHierarchyInRect(self.view.frame, afterScreenUpdates: true)
+        let memedImage : UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        //Show toolbar and navbar
+        toolbar.hidden = false
+        
+        return memedImage
     }
     
     
