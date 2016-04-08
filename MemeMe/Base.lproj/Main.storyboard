@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gRH-Wr-5j1">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gRH-Wr-5j1">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
                                 <variation key="widthClass=regular" ambiguous="YES" misplaced="YES">
                                     <rect key="frame" x="0.0" y="0.0" width="558" height="287"/>
@@ -36,15 +36,15 @@
                                 <rect key="frame" x="0.0" y="556" width="600" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Dyv-lN-yKQ"/>
-                                    <barButtonItem systemItem="camera" id="Zkf-Ju-sx9">
+                                    <barButtonItem tag="1" systemItem="camera" id="Zkf-Ju-sx9">
                                         <connections>
-                                            <action selector="pickAnImageFromCamera:" destination="BYZ-38-t0r" id="qCF-fK-am7"/>
+                                            <action selector="pickAnImageFromCamera:" destination="BYZ-38-t0r" id="cOR-YC-BY9"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="kEq-yb-z6d"/>
-                                    <barButtonItem title="Album" id="PTh-2E-R34">
+                                    <barButtonItem tag="2" title="Album" id="PTh-2E-R34">
                                         <connections>
-                                            <action selector="pickAnImageFromAlbum:" destination="BYZ-38-t0r" id="43e-hA-Stk"/>
+                                            <action selector="pickAnImageFromAlbum:" destination="BYZ-38-t0r" id="48J-S6-cEh"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="R2e-qA-9EX"/>

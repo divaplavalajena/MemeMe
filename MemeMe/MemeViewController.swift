@@ -52,8 +52,8 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.topTextField.delegate = self
-        self.bottomTextField.delegate = self
+        topTextField.delegate = self
+        bottomTextField.delegate = self
         
         setTextFieldAttributes()
         
@@ -62,7 +62,7 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         // Subscribe to keyboard notifications to allow the view to raise when necessary
-        self.subscribeToKeyboardNotifications()
+        subscribeToKeyboardNotifications()
         
         if imagePickerView.image == nil {
             shareButton.enabled = false
@@ -78,31 +78,33 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        self.unsubscribeFromKeyboardNotifications()
+        unsubscribeFromKeyboardNotifications()
     }
     
     //MARK: Button methods - Image or Camera or Share
     @IBAction func pickAnImageFromCamera (sender: AnyObject) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = UIImagePickerControllerSourceType.Camera
-        presentViewController(imagePicker, animated: true, completion: nil)
-        
+        let sourceType = UIImagePickerControllerSourceType.Camera
+        imagePickerHelper(sourceType)
     }
     
+    
     @IBAction func pickAnImageFromAlbum (sender: AnyObject) {
+        let sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        imagePickerHelper(sourceType)
+    }
+    
+    func imagePickerHelper( sourceType: UIImagePickerControllerSourceType) {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
-        imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        imagePicker.sourceType = sourceType
         presentViewController(imagePicker, animated: true, completion: nil)
-        
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imagePickerView.image = image
-            self.dismissViewControllerAnimated(true, completion: nil)
-            
+            //imagePickerView.contentMode = .ScaleAspectFit
+            dismissViewControllerAnimated(true, completion: nil)
         }
     }
     
@@ -119,34 +121,9 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             let image = memedImage
             let controller = UIActivityViewController(activityItems: [image!], applicationActivities: nil)
             controller.completionWithItemsHandler = {(activityType, completed:Bool, returnedItems:[AnyObject]?, error:NSError?) in
-                
-                if !completed {
-                    print("Sharing cancelled by user")
-                } else {
-                    self.save()
-                
-                    switch activityType! {
-                    case UIActivityTypePostToFacebook:
-                        print("Facebook")
-                    case UIActivityTypePostToTwitter:
-                        print("Twitter")
-                    case UIActivityTypeSaveToCameraRoll:
-                        print("Saved to camera roll")
-                    case UIActivityTypeMessage:
-                        print("Sent as text message")
-                    case UIActivityTypePostToFlickr:
-                        print("Flickr")
-                    case UIActivityTypePostToVimeo:
-                        print("Vimeo")
-                    case UIActivityTypeMail:
-                        print("Shared via email")
-                    default:
-                        print("default called - some other selection was made")
-                    }
-                }
                 self.dismissViewControllerAnimated(true, completion: nil)
             }
-            self.presentViewController(controller, animated: true, completion: nil)
+            presentViewController(controller, animated: true, completion: nil)
         }
     }
     
@@ -206,8 +183,6 @@ class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     func keyboardWillShow(notification: NSNotification) {
         if bottomTextField.isFirstResponder() {
             self.view.frame.origin.y = getKeyboardHeight(notification) * -1
-        } else {
-            self.view.frame.origin.y = 0
         }
     }
     
