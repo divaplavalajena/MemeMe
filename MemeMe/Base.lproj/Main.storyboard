@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="93P-P9-OBX">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
@@ -31,20 +31,53 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="mls-FW-0m6">
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2NI-vv-mSG">
-                            <size key="itemSize" width="50" height="50"/>
+                            <size key="itemSize" width="128" height="106"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionViewCell" id="QFP-Ig-9jv">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionViewCell" id="QFP-Ig-9jv" customClass="CustomMemeCollectionViewCell" customModule="MemeMe" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="128" height="106"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hfu-28-xhS">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                            <variation key="widthClass=compact" fixedFrame="YES">
+                                                <rect key="frame" x="8" y="37" width="100" height="69"/>
+                                            </variation>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vVH-QE-Hjf">
+                                            <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="widthClass=compact" fixedFrame="YES">
+                                                <rect key="frame" x="8" y="8" width="100" height="21"/>
+                                            </variation>
+                                        </label>
+                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="hfu-28-xhS"/>
+                                        <exclude reference="vVH-QE-Hjf"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="subviews">
+                                        <include reference="hfu-28-xhS"/>
+                                        <include reference="vVH-QE-Hjf"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <outlet property="sentMemeImageView" destination="hfu-28-xhS" id="iyE-1a-pc5"/>
+                                    <outlet property="sentMemeLabel" destination="vVH-QE-Hjf" id="uFc-Fp-HUO"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
                         <connections>
@@ -52,7 +85,13 @@
                             <outlet property="delegate" destination="qt3-0R-SiK" id="kZQ-Ri-3lr"/>
                         </connections>
                     </collectionView>
-                    <navigationItem key="navigationItem" id="EEK-kJ-8pp"/>
+                    <navigationItem key="navigationItem" id="EEK-kJ-8pp">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="yza-ku-jLz">
+                            <connections>
+                                <segue destination="BYZ-38-t0r" kind="presentation" id="jWx-c1-50Q"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zAo-KA-onT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -78,16 +117,22 @@
                             <outlet property="delegate" destination="GAe-D9-32e" id="Psz-I9-D27"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="8gZ-cE-wcD"/>
+                    <navigationItem key="navigationItem" id="8gZ-cE-wcD">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="e8F-kA-Kmn">
+                            <connections>
+                                <segue destination="BYZ-38-t0r" kind="presentation" id="j3B-x5-tnG"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S5R-Sp-hxc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1059" y="-217"/>
         </scene>
-        <!--Meme View Controller-->
+        <!--Edit Meme View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MemeViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="EditMemeViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -381,11 +426,11 @@
             </objects>
             <point key="canvasLocation" x="1882.5" y="-444"/>
         </scene>
-        <!--Item-->
+        <!--Table-->
         <scene sceneID="acG-xT-hsO">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3Hn-jO-tLU" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="VdS-QN-JZR"/>
+                    <tabBarItem key="tabBarItem" title="Table" id="VdS-QN-JZR"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="66A-dl-Jjg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -400,11 +445,11 @@
             </objects>
             <point key="canvasLocation" x="310.5" y="-217"/>
         </scene>
-        <!--Item-->
+        <!--Collection-->
         <scene sceneID="UCS-vj-otl">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jYy-ZR-ne0" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="iU3-tb-a4v"/>
+                    <tabBarItem key="tabBarItem" title="Collection" id="iU3-tb-a4v"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="VsD-Y1-pdf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -420,4 +465,7 @@
             <point key="canvasLocation" x="310.5" y="482"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="jWx-c1-50Q"/>
+    </inferredMetricsTieBreakers>
 </document>

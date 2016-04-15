@@ -1,5 +1,5 @@
 //
-//  MemeViewController.swift
+//  EditMemeViewController.swift
 //  MemeMe
 //
 //  Created by Jena Grafton on 4/6/16.
@@ -9,7 +9,7 @@
 import UIKit
 
 
-class MemeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
+class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
     
     var memedImage: UIImage?
     
