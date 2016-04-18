@@ -19,7 +19,7 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
     @IBOutlet var cameraButton: UIBarButtonItem!
     @IBOutlet var shareButton: UIBarButtonItem!
     @IBOutlet var toolbar: UIToolbar!
-    
+
     @IBOutlet var topTextField: UITextField!
     @IBOutlet var bottomTextField: UITextField!
     
@@ -117,13 +117,18 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
         //Generate the Memed Image and store it in the memedImage variable
         memedImage = generateMemedImage()
         
+        //var completed = false
         if memedImage != nil {
             let image = memedImage
             let controller = UIActivityViewController(activityItems: [image!], applicationActivities: nil)
             controller.completionWithItemsHandler = {(activityType, completed:Bool, returnedItems:[AnyObject]?, error:NSError?) in
+                if completed {
+                    self.save()
+                }
                 self.dismissViewControllerAnimated(true, completion: nil)
             }
             presentViewController(controller, animated: true, completion: nil)
+
         }
     }
     
@@ -155,6 +160,9 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
         return memedImage
     }
     
+    @IBAction func cancelButton(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
     
     //MARK: Text Field methods
     func textFieldShouldReturn(textField: UITextField) -> Bool {

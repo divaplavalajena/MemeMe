@@ -43,12 +43,31 @@ class SentMemesTableViewController: UITableViewController {
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let cell = tableView.dequeueReusableCellWithIdentifier("TableViewCell", forIndexPath: indexPath)
 
-        // Configure the cell...
+        let meme = memes[indexPath.row]
+        
+        // Set the top meme text and image
+        cell.textLabel?.text = meme.topText
+        cell.imageView?.image = meme.imageMeme
+        
+        //And the detail text label for the bottom half of the meme text
+        if let detailTextLabel = cell.detailTextLabel {
+            detailTextLabel.text = meme.bottomText
+        }
+
 
         return cell
     }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        // If a meme is selected in the table view navigate to the detailMemeViewController to display the meme
+        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("DetailMemeViewController") as! DetailMemeViewController
+        detailController.meme = self.memes[indexPath.row]
+        self.navigationController!.pushViewController(detailController, animated: true)
+        
+    }
+    
     
 
     /*

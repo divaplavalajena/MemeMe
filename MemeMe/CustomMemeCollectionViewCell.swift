@@ -12,6 +12,5 @@ class CustomMemeCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet var sentMemeImageView: UIImageView!
     
-    @IBOutlet var sentMemeLabel: UILabel!
     
 }

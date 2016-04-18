@@ -15,6 +15,9 @@ class SentMemesCollectionViewController: UICollectionViewController {
     var memes: [Meme] {
         return (UIApplication.sharedApplication().delegate as! AppDelegate).memes
     }
+    
+    //outlet to flowLayout
+    @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,17 +25,20 @@ class SentMemesCollectionViewController: UICollectionViewController {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
-        // Register cell classes
-        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
+        //implement cell flowLayout
+        cellFlowLayout()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func cellFlowLayout() {
+        let space: CGFloat = 3.0
+        let dimensionWidth = (view.frame.size.width - (2 * space)) / 2.0
+        let dimensionHeight = (view.frame.size.height - (2 * space)) / 3.0
+        
+        flowLayout.minimumLineSpacing = 2.0
+        flowLayout.minimumInteritemSpacing = 1.0
+        flowLayout.itemSize = CGSizeMake(dimensionWidth, dimensionHeight)
+        
     }
-
     /*
     // MARK: - Navigation
 
@@ -61,12 +67,25 @@ class SentMemesCollectionViewController: UICollectionViewController {
 
         let meme = memes[indexPath.item]
         //cell.setText(meme.topText, bottomString: meme.bottomText)
-        let imageView = UIImageView(image: meme.imageMeme)
-        cell.backgroundView = imageView
+        
+        cell.sentMemeImageView?.image = meme.imageMeme
+        
+        //let imageView = UIImageView(image: meme.imageMeme)
+        //cell.backgroundView = imageView
     
         return cell
     }
+    
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        // If a meme is selected in the collection view navigate to the detailMemeViewController to display the meme
+        let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("DetailMemeViewController") as! DetailMemeViewController
+        detailController.meme = self.memes[indexPath.row]
+        self.navigationController!.pushViewController(detailController, animated: true)
+        
+    }
 
+    
+    
     // MARK: UICollectionViewDelegate
 
     /*
