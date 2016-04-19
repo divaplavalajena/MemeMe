@@ -18,6 +18,10 @@ class SentMemesCollectionViewController: UICollectionViewController {
     
     //outlet to flowLayout
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
+    
+    override func viewWillAppear(animated: Bool) {
+        collectionView?.reloadData()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,19 +30,23 @@ class SentMemesCollectionViewController: UICollectionViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         //implement cell flowLayout
-        cellFlowLayout()
+        cellFlowLayout(self.view.frame.size)
     }
 
-    func cellFlowLayout() {
-        let space: CGFloat = 3.0
-        let dimensionWidth = (view.frame.size.width - (2 * space)) / 2.0
-        let dimensionHeight = (view.frame.size.height - (2 * space)) / 3.0
+    func cellFlowLayout(size: CGSize) {
+        let space: CGFloat = 1.5
+        let dimension: CGFloat = size.width >= size.height ? (size.width - (5 * space)) / 6.0 : (size.width - (2 * space)) / 3.0
         
-        flowLayout.minimumLineSpacing = 2.0
-        flowLayout.minimumInteritemSpacing = 1.0
-        flowLayout.itemSize = CGSizeMake(dimensionWidth, dimensionHeight)
+        flowLayout.minimumLineSpacing = space
+        flowLayout.minimumInteritemSpacing = space
+        flowLayout.itemSize = CGSizeMake(dimension, dimension)
         
     }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        cellFlowLayout(size)
+    }
+    
     /*
     // MARK: - Navigation
 

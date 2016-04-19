@@ -13,7 +13,7 @@ class DetailMemeViewController: UIViewController {
     var meme: Meme!
     
     @IBOutlet var memedImageView: UIImageView!
-    @IBOutlet var shareButtonOutlet: UIBarButtonItem!
+    //@IBOutlet var shareButtonOutlet: UIBarButtonItem!
     
     
     
@@ -27,11 +27,13 @@ class DetailMemeViewController: UIViewController {
         
         self.memedImageView.image = meme.imageMeme
         
+        /*
         if memedImageView.image == nil {
             shareButtonOutlet.enabled = false
         } else {
             shareButtonOutlet.enabled = true
         }
+        */
 
     }
 
