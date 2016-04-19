@@ -34,6 +34,7 @@ class SentMemesCollectionViewController: UICollectionViewController {
     }
 
     func cellFlowLayout(size: CGSize) {
+        print("cellFlowLayout called")
         let space: CGFloat = 1.5
         let dimension: CGFloat = size.width >= size.height ? (size.width - (5 * space)) / 6.0 : (size.width - (2 * space)) / 3.0
         
@@ -43,9 +44,14 @@ class SentMemesCollectionViewController: UICollectionViewController {
         
     }
     
+    /*
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        print("viewWillTransitionToSize method called")
         cellFlowLayout(size)
     }
+    */
+    
+    
     
     /*
     // MARK: - Navigation
