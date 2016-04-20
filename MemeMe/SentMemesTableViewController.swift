@@ -68,7 +68,7 @@ class SentMemesTableViewController: UITableViewController {
         // If a meme is selected in the table view navigate to the detailMemeViewController to display the meme
         let detailController = self.storyboard!.instantiateViewControllerWithIdentifier("DetailMemeViewController") as! DetailMemeViewController
         detailController.meme = self.memes[indexPath.row]
-        self.navigationController!.pushViewController(detailController, animated: true)
+        navigationController!.pushViewController(detailController, animated: true)
         
     }
     

@@ -30,22 +30,11 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
         NSStrokeWidthAttributeName : -5.0
     ]
     
-    func setTextFieldAttributes() {
-    
-        topTextField.borderStyle = UITextBorderStyle.None
-        bottomTextField.borderStyle = UITextBorderStyle.None
-        
-        topTextField.backgroundColor = UIColor.clearColor()
-        bottomTextField.backgroundColor = UIColor.clearColor()
-        
-        topTextField.text = "TOP"
-        bottomTextField.text = "BOTTOM"
-        
-        topTextField.defaultTextAttributes = memeTextAttributes
-        bottomTextField.defaultTextAttributes = memeTextAttributes
-        
-        topTextField.textAlignment = .Center
-        bottomTextField.textAlignment = .Center
+    func setTextFieldAttributes(textField: UITextField) {
+        textField.borderStyle = UITextBorderStyle.None
+        textField.backgroundColor = UIColor.clearColor()
+        textField.defaultTextAttributes = memeTextAttributes
+        textField.textAlignment = .Center
     }
     
     
@@ -55,7 +44,11 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
         topTextField.delegate = self
         bottomTextField.delegate = self
         
-        setTextFieldAttributes()
+        setTextFieldAttributes(topTextField)
+        setTextFieldAttributes(bottomTextField)
+        
+        topTextField.text = "TOP"
+        bottomTextField.text = "BOTTOM"
         
     }
     
@@ -179,8 +172,8 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
     
     //MARK: Keyboard methods
     func subscribeToKeyboardNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EditMemeViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EditMemeViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     func unsubscribeFromKeyboardNotifications() {
