@@ -102,9 +102,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9C8913641DB03B9A007FB4C8 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9C76312D1CC04A64003A9CE4 /* SentMemesTableViewController.swift */,
+				9C76312B1CC04A39003A9CE4 /* SentMemesCollectionViewController.swift */,
+				9CEAABA91CB5900A00928779 /* EditMemeViewController.swift */,
+				9C7631331CC574E8003A9CE4 /* DetailMemeViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		9C8913651DB03BAF007FB4C8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9C76312F1CC142D1003A9CE4 /* CustomMemeCollectionViewCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		9C8913661DB03BBB007FB4C8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				9C15286E1CB842300054F0CA /* MemeStruct.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		9CCB94571CC6D5BE00ADAACB /* MemeMe_assets */ = {
 			isa = PBXGroup;
 			children = (
+				9CEAABAB1CB5900A00928779 /* Main.storyboard */,
 				9CCB94581CC6D5BE00ADAACB /* collection_30x30.png */,
 				9CCB94591CC6D5BE00ADAACB /* collection_60x60.png */,
 				9CCB945A1CC6D5BE00ADAACB /* collection_90x90.png */,
@@ -142,13 +170,9 @@
 			isa = PBXGroup;
 			children = (
 				9CEAABA71CB5900A00928779 /* AppDelegate.swift */,
-				9CEAABAB1CB5900A00928779 /* Main.storyboard */,
-				9C76312D1CC04A64003A9CE4 /* SentMemesTableViewController.swift */,
-				9C76312B1CC04A39003A9CE4 /* SentMemesCollectionViewController.swift */,
-				9C76312F1CC142D1003A9CE4 /* CustomMemeCollectionViewCell.swift */,
-				9C15286E1CB842300054F0CA /* MemeStruct.swift */,
-				9CEAABA91CB5900A00928779 /* EditMemeViewController.swift */,
-				9C7631331CC574E8003A9CE4 /* DetailMemeViewController.swift */,
+				9C8913661DB03BBB007FB4C8 /* Model */,
+				9C8913651DB03BAF007FB4C8 /* View */,
+				9C8913641DB03B9A007FB4C8 /* Controller */,
 				9CCB94571CC6D5BE00ADAACB /* MemeMe_assets */,
 				9CEAABAE1CB5900A00928779 /* Assets.xcassets */,
 				9CEAABB01CB5900A00928779 /* LaunchScreen.storyboard */,
@@ -238,18 +262,22 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Bella Voce Productions";
 				TargetAttributes = {
 					9CEAABA31CB5900A00928779 = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = BU3R4YBAT8;
+						LastSwiftMigration = 0800;
 					};
 					9CEAABB71CB5900A00928779 = {
 						CreatedOnToolsVersion = 7.2.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = 9CEAABA31CB5900A00928779;
 					};
 					9CEAABC21CB5900A00928779 = {
 						CreatedOnToolsVersion = 7.2.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = 9CEAABA31CB5900A00928779;
 					};
 				};
@@ -363,6 +391,7 @@
 				9CEAABAC1CB5900A00928779 /* Base */,
 			);
 			name = Main.storyboard;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		9CEAABB01CB5900A00928779 /* LaunchScreen.storyboard */ = {
@@ -389,8 +418,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -433,8 +464,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -453,6 +486,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -461,10 +495,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = BU3R4YBAT8;
 				INFOPLIST_FILE = MemeMe/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bellavoceproductions.MemeMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -472,10 +509,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = BU3R4YBAT8;
 				INFOPLIST_FILE = MemeMe/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bellavoceproductions.MemeMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -487,6 +527,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bellavoceproductions.MemeMeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MemeMe.app/MemeMe";
 			};
 			name = Debug;
@@ -499,6 +540,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bellavoceproductions.MemeMeTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MemeMe.app/MemeMe";
 			};
 			name = Release;
@@ -510,6 +552,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bellavoceproductions.MemeMeUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = MemeMe;
 				USES_XCTRUNNER = YES;
 			};
@@ -522,6 +565,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.bellavoceproductions.MemeMeUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = MemeMe;
 				USES_XCTRUNNER = YES;
 			};
