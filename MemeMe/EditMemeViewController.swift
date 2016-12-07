@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 
 class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
@@ -36,6 +37,13 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
         textField.defaultTextAttributes = memeTextAttributes
         textField.textAlignment = .center
     }
+    
+    lazy var sharedContext: NSManagedObjectContext = {
+        // Get the stack
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        let stack = delegate.stack
+        return stack.context
+    }()
     
     
     override func viewDidLoad() {
@@ -116,7 +124,7 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
             let controller = UIActivityViewController(activityItems: [image!], applicationActivities: nil)
             controller.completionWithItemsHandler = {(activityType, completed, returnedItems, error) in
                 if completed {
-                    self.save()
+                    self.save(image!)
                 }
                 
             }
@@ -127,13 +135,27 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
     
     
     //MARK: Save method and generate method for meme
-    func save() {
+    func save(_ memedImage: UIImage) {
+        
+        let dictionary : [String : AnyObject] = [
+            "bottomText" : bottomTextField.text! as AnyObject,
+            "topText" :   topTextField.text! as AnyObject,
+            "orgImage" : imagePickerView.image!,
+            "memedImage" : memedImage
+        ]
+        
+        _ = Meme(dictionary: dictionary, context: sharedContext)
+        
+        // save in Core Data
+        self.saveToBothContexts()
+        
+        /*
         //Create the meme
         let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, imageOriginal: imagePickerView.image!, imageMeme: memedImage!)
         
         // Add it to the memes array in the Application Delegate
         (UIApplication.shared.delegate as! AppDelegate).memes.append(meme)
-        
+        */
     }
     
     func generateMemedImage() -> UIImage {
@@ -197,6 +219,13 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
         let userInfo = (notification as NSNotification).userInfo!
         let keyboardSize = userInfo[UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
         return keyboardSize.cgRectValue.height
+    }
+    
+    // MARK: Save to Both Contexts function
+    func saveToBothContexts() {
+        // Save pin data to both contexts
+        let stack = (UIApplication.shared.delegate as! AppDelegate).stack
+        stack.saveBothContexts()
     }
     
     

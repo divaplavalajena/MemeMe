@@ -6,16 +6,55 @@
 //  Copyright © 2016 Bella Voce Productions. All rights reserved.
 //
 
+import Foundation
 import UIKit
+import CoreData
 
-class SentMemesTableViewController: UITableViewController {
+class SentMemesTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
+    /*
     var memes: [Meme] {
         return (UIApplication.shared.delegate as! AppDelegate).memes
     }
+    */
+    
+    lazy var sharedContext: NSManagedObjectContext = {
+        // Get the stack
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        let stack = delegate.stack
+        return stack.context
+    }()
+    
+    // MARK: NSFetchedResultsController
+    
+    lazy var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> = {
+        
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = Meme.fetchRequest()
+        //fetchRequest.sortDescriptors = [NSSortDescriptor(key: "creationTime", ascending: false)]
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                                                  managedObjectContext: self.sharedContext,
+                                                                  sectionNameKeyPath: nil,
+                                                                  cacheName: nil)
+        fetchedResultsController.delegate = self
+        
+        do{
+            try fetchedResultsController.performFetch()
+        }catch{
+            var error = error as Error
+            print("There was an error fetching from Core Data on SentMemesTableViewController")
+            print("Unresolved error \(error), \(error.localizedDescription)")
+        }
 
+        
+        return fetchedResultsController
+        
+    }()
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //fetchedResultsController.delegate = self
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -25,35 +64,41 @@ class SentMemesTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        /*
+        do{
+            try fetchedResultsController.performFetch()
+        }catch{
+            print("There was an error fetching from Core Data on SentMemesTableViewController")
+        }
+        */
+        
         tableView.reloadData()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return fetchedResultsController.sections?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return memes.count
+        
+        return fetchedResultsController.sections![section].numberOfObjects
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath)
 
-        let meme = memes[(indexPath as NSIndexPath).row]
+        let meme = fetchedResultsController.object(at: indexPath) as! Meme
         
         // Set the top meme text and image
         cell.textLabel?.text = meme.topText
-        cell.imageView?.image = meme.imageMeme
+        cell.imageView?.image = UIImage(data:meme.imageMeme as Data)
         
         //And the detail text label for the bottom half of the meme text
         if let detailTextLabel = cell.detailTextLabel {
@@ -67,10 +112,12 @@ class SentMemesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // If a meme is selected in the table view navigate to the detailMemeViewController to display the meme
         let detailController = self.storyboard!.instantiateViewController(withIdentifier: "DetailMemeViewController") as! DetailMemeViewController
-        detailController.meme = self.memes[(indexPath as NSIndexPath).row]
+        detailController.meme = fetchedResultsController.object(at: indexPath) as! Meme
         navigationController!.pushViewController(detailController, animated: true)
         
     }
+    
+    
     
     
 

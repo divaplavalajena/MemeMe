@@ -6,25 +6,61 @@
 //  Copyright © 2016 Bella Voce Productions. All rights reserved.
 //
 
+import Foundation
 import UIKit
+import CoreData
+
 
 private let reuseIdentifier = "CustomMemeCollectionViewCell"
 
-class SentMemesCollectionViewController: UICollectionViewController {
+class SentMemesCollectionViewController: UICollectionViewController, NSFetchedResultsControllerDelegate {
     
+    /*
     var memes: [Meme] {
         return (UIApplication.shared.delegate as! AppDelegate).memes
     }
+    */
+    
+    lazy var sharedContext: NSManagedObjectContext = {
+        // Get the stack
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        let stack = delegate.stack
+        return stack.context
+    }()
+    
+    // MARK: NSFetchedResultsController
+    
+    lazy var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> = {
+        
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = Meme.fetchRequest()
+        //fetchRequest.sortDescriptors = [NSSortDescriptor(key: "creationTime", ascending: false)]
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                                                  managedObjectContext: self.sharedContext,
+                                                                  sectionNameKeyPath: nil,
+                                                                  cacheName: nil)
+        return fetchedResultsController
+        
+    }()
+
     
     //outlet to flowLayout
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        do{
+            try fetchedResultsController.performFetch()
+        } catch {
+            print("There was an error fetching from Core Data on SentMemesCollectionViewController")
+        }
+        
         collectionView?.reloadData()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        fetchedResultsController.delegate = self
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -67,22 +103,23 @@ class SentMemesCollectionViewController: UICollectionViewController {
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 1
+        return fetchedResultsController.sections?.count ?? 0
     }
 
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return memes.count
+        
+        return fetchedResultsController.sections![section].numberOfObjects
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CustomMemeCollectionViewCell
 
-        let meme = memes[(indexPath as NSIndexPath).item]
+        let meme = fetchedResultsController.object(at: indexPath) as! Meme
         //cell.setText(meme.topText, bottomString: meme.bottomText)
         
-        cell.sentMemeImageView?.image = meme.imageMeme
+        cell.sentMemeImageView?.image = UIImage(data:meme.imageMeme as Data)
         
         //let imageView = UIImageView(image: meme.imageMeme)
         //cell.backgroundView = imageView
@@ -93,10 +130,12 @@ class SentMemesCollectionViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // If a meme is selected in the collection view navigate to the detailMemeViewController to display the meme
         let detailController = self.storyboard!.instantiateViewController(withIdentifier: "DetailMemeViewController") as! DetailMemeViewController
-        detailController.meme = self.memes[(indexPath as NSIndexPath).row]
+        detailController.meme = fetchedResultsController.object(at: indexPath) as! Meme
         self.navigationController!.pushViewController(detailController, animated: true)
         
     }
+    
+    
 
     
     

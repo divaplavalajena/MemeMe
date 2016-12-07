@@ -23,7 +23,7 @@ class DetailMemeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.memedImageView.image = meme.imageMeme
+        self.memedImageView.image = UIImage(data: meme.imageMeme as Data)
 
     }
 
