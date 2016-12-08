@@ -30,10 +30,10 @@ class SentMemesCollectionViewController: UICollectionViewController, NSFetchedRe
     
     // MARK: NSFetchedResultsController
     
-    lazy var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> = {
+    lazy var fetchedResultsController: NSFetchedResultsController<Meme> = {
         
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = Meme.fetchRequest()
-        //fetchRequest.sortDescriptors = [NSSortDescriptor(key: "creationTime", ascending: false)]
+        let fetchRequest: NSFetchRequest<Meme> = Meme.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                                   managedObjectContext: self.sharedContext,
                                                                   sectionNameKeyPath: nil,
@@ -51,7 +51,9 @@ class SentMemesCollectionViewController: UICollectionViewController, NSFetchedRe
         do{
             try fetchedResultsController.performFetch()
         } catch {
+            let error = error as Error
             print("There was an error fetching from Core Data on SentMemesCollectionViewController")
+            print("Unresolved error \(error), \(error.localizedDescription)")
         }
         
         collectionView?.reloadData()
@@ -116,7 +118,7 @@ class SentMemesCollectionViewController: UICollectionViewController, NSFetchedRe
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CustomMemeCollectionViewCell
 
-        let meme = fetchedResultsController.object(at: indexPath) as! Meme
+        let meme = fetchedResultsController.object(at: indexPath) 
         //cell.setText(meme.topText, bottomString: meme.bottomText)
         
         cell.sentMemeImageView?.image = UIImage(data:meme.imageMeme as Data)
@@ -130,7 +132,7 @@ class SentMemesCollectionViewController: UICollectionViewController, NSFetchedRe
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // If a meme is selected in the collection view navigate to the detailMemeViewController to display the meme
         let detailController = self.storyboard!.instantiateViewController(withIdentifier: "DetailMemeViewController") as! DetailMemeViewController
-        detailController.meme = fetchedResultsController.object(at: indexPath) as! Meme
+        detailController.meme = fetchedResultsController.object(at: indexPath) 
         self.navigationController!.pushViewController(detailController, animated: true)
         
     }

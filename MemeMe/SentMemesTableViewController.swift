@@ -27,25 +27,14 @@ class SentMemesTableViewController: UITableViewController, NSFetchedResultsContr
     
     // MARK: NSFetchedResultsController
     
-    lazy var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> = {
+    lazy var fetchedResultsController: NSFetchedResultsController<Meme> = {
         
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = Meme.fetchRequest()
-        //fetchRequest.sortDescriptors = [NSSortDescriptor(key: "creationTime", ascending: false)]
+        let fetchRequest: NSFetchRequest<Meme> = Meme.fetchRequest()
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
                                                                   managedObjectContext: self.sharedContext,
                                                                   sectionNameKeyPath: nil,
                                                                   cacheName: nil)
-        fetchedResultsController.delegate = self
-        
-        do{
-            try fetchedResultsController.performFetch()
-        }catch{
-            var error = error as Error
-            print("There was an error fetching from Core Data on SentMemesTableViewController")
-            print("Unresolved error \(error), \(error.localizedDescription)")
-        }
-
-        
         return fetchedResultsController
         
     }()
@@ -54,7 +43,7 @@ class SentMemesTableViewController: UITableViewController, NSFetchedResultsContr
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //fetchedResultsController.delegate = self
+        fetchedResultsController.delegate = self
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -64,13 +53,16 @@ class SentMemesTableViewController: UITableViewController, NSFetchedResultsContr
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        /*
+        
         do{
             try fetchedResultsController.performFetch()
         }catch{
+            let error = error as Error
             print("There was an error fetching from Core Data on SentMemesTableViewController")
+            print("Unresolved error \(error), \(error.localizedDescription)")
+
         }
-        */
+ 
         
         tableView.reloadData()
     }
@@ -94,7 +86,7 @@ class SentMemesTableViewController: UITableViewController, NSFetchedResultsContr
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath)
 
-        let meme = fetchedResultsController.object(at: indexPath) as! Meme
+        let meme = fetchedResultsController.object(at: indexPath)
         
         // Set the top meme text and image
         cell.textLabel?.text = meme.topText
@@ -112,7 +104,7 @@ class SentMemesTableViewController: UITableViewController, NSFetchedResultsContr
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // If a meme is selected in the table view navigate to the detailMemeViewController to display the meme
         let detailController = self.storyboard!.instantiateViewController(withIdentifier: "DetailMemeViewController") as! DetailMemeViewController
-        detailController.meme = fetchedResultsController.object(at: indexPath) as! Meme
+        detailController.meme = fetchedResultsController.object(at: indexPath) 
         navigationController!.pushViewController(detailController, animated: true)
         
     }

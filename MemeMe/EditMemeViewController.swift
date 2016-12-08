@@ -118,7 +118,7 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
         //Generate the Memed Image and store it in the memedImage variable
         memedImage = generateMemedImage()
         
-        //var completed = false
+        // If not nil, perform activity and save to core data
         if memedImage != nil {
             let image = memedImage
             let controller = UIActivityViewController(activityItems: [image!], applicationActivities: nil)
@@ -141,7 +141,8 @@ class EditMemeViewController: UIViewController, UIImagePickerControllerDelegate,
             "bottomText" : bottomTextField.text! as AnyObject,
             "topText" :   topTextField.text! as AnyObject,
             "orgImage" : imagePickerView.image!,
-            "memedImage" : memedImage
+            "memedImage" : memedImage,
+            "creationDate" : Date() as AnyObject
         ]
         
         _ = Meme(dictionary: dictionary, context: sharedContext)
